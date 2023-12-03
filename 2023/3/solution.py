@@ -1,5 +1,4 @@
 import re
-from functools import reduce
 from pathlib import Path
 from collections import defaultdict
 
@@ -20,12 +19,12 @@ def find_part_numbers_sum(file_name="input.txt"):
         (-1, 0),
         (-1, 1),
         (0, -1),
-        (0, 0),
         (0, 1),
         (1, -1),
         (1, 0),
         (1, 1)
     ]
+
     for i in range(row_length):
         line = schema[i]
         matches = re.finditer(symbol_pattern, line)
@@ -70,7 +69,6 @@ def find_gear_ratio_sum(file_name="input.txt"):
         (-1, 0),
         (-1, 1),
         (0, -1),
-        (0, 0),
         (0, 1),
         (1, -1),
         (1, 0),
@@ -88,8 +86,6 @@ def find_gear_ratio_sum(file_name="input.txt"):
             number = match.group(1)
             gears_visited = set()
             for j in range(match.start(), match.end()):
-                found_gear = False
-
                 for direction in directions:
                     adj_i = i + direction[0]
                     adj_j = j + direction[1]
@@ -110,6 +106,7 @@ def find_gear_ratio_sum(file_name="input.txt"):
 
             for gear in adj_to_gear[key]:
                 gear_ratio *= gear
+
             gear_ratio_sum += gear_ratio
 
     return gear_ratio_sum
